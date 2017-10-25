@@ -1201,6 +1201,13 @@ detect-indent@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
 
+dockerlint@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/dockerlint/-/dockerlint-0.3.1.tgz#b72f3803c79df06b3a4ed671306607e4a7425d2e"
+  dependencies:
+    sty "^0.6.1"
+    subarg "^1.0.0"
+
 doctrine@1.5.0, doctrine@^1.2.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
@@ -3909,6 +3916,16 @@ strip-indent@^1.0.1:
 strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+
+sty@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/sty/-/sty-0.6.1.tgz#de3fb9ae570bc60a7447245f0dec31213ea2d5a8"
+
+subarg@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/subarg/-/subarg-1.0.0.tgz#f62cf17581e996b48fc965699f54c06ae268b8d2"
+  dependencies:
+    minimist "^1.1.0"
 
 superagent@^3.0.0:
   version "3.6.3"
