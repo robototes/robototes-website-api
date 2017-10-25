@@ -1,11 +1,11 @@
 FROM node:8
 LABEL name="robototes-website" service="api" version="2.0.0-alpha" maintainer="webmaster@robototes.com"
 
-# Install our dependencies
-RUN [ "yarn", "install", "--production", "--non-interactive" ]
-
 # Copy the server files
 COPY server.js package.json yarn.lock routes/ ./
+
+# Install our dependencies
+RUN [ "yarn", "install", "--production", "--non-interactive" ]
 
 # Basic configuration
 ENV PORT=3000 IP="0.0.0.0"
