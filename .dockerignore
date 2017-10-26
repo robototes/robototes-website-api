@@ -1,8 +1,5 @@
-.git/
-tests/
-coverage/
-.nyc_output/
-node_modules/
-.gitignore
-Dockerfile
-.dockerignore
+**
+!package.json
+!yarn.lock
+!server.js
+!routes/
