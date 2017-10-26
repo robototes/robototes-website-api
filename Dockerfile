@@ -2,8 +2,8 @@ FROM node:8
 LABEL name="robototes-website" service="api" version="2.0.0-alpha" maintainer="webmaster@robototes.com"
 
 # Copy the server files
-ADD server.js package.json yarn.lock ./
-ADD routes ./routes
+COPY . /robototes-website-api
+WORKDIR /robototes-website-api
 
 # Install our dependencies
 RUN [ "yarn", "install", "--production", "--non-interactive" ]
