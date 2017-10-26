@@ -6,7 +6,7 @@ COPY . /robototes-website-api
 WORKDIR /robototes-website-api
 
 # Install our dependencies
-RUN [ "yarn", "install", "--production", "--non-interactive" ]
+RUN [ "yarn", "install", "--production", "--non-interactive", "--pure-lockfile" ]
 
 # Basic configuration
 ENV PORT=3000 IP="0.0.0.0"
