@@ -1,7 +1,8 @@
+.git/
 tests/
-tests/**/*
 coverage/
 .nyc_output/
 node_modules/
+.gitignore
 Dockerfile
 .dockerignore
