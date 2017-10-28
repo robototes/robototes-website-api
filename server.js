@@ -3,7 +3,7 @@ const debug = require('debug')
 const nconf = require('nconf')
 const Koa = require('koa')
 const router = require('koa-router')({
-  prefix: '/webhook'
+  prefix: '/api'
 })
 
 // Logging
@@ -55,7 +55,7 @@ app.use(async (ctx, next) => {
   .use(middlewares.compress()) // Compresses responses
 log('Configured middleware')
 
-// Link all webhooks to the router
+// Link all endpoints to the router
 router.post('/tba', require('./routes/thebluealliance'))
 
 // Add the routes
