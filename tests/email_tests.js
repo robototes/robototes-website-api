@@ -8,7 +8,7 @@ module.exports = test => {
   test.cb('Denies requests without an alias (400)', t => {
     test.request.get('/api/email')
       .query({
-        domain: 'example.com'
+        domain: nconf.get('DOMAIN')
       })
       .expect(400, t.end)
   })
@@ -32,20 +32,11 @@ module.exports = test => {
       })
       .expect(400, t.end)
   })
-  test.cb('Allows requests with an IP instead of a hostname (301)', t => {
+  test.cb('Denies requests with disallowed hostnames (400)', t => {
     test.request.get('/api/email')
       .query({
         alias: 'johndoe',
-        domain: '1.1.1.1'
-      })
-      .expect('Location', 'mailto://johndoe@1.1.1.1')
-      .expect(301, t.end)
-  })
-  test.cb('Denies requests with invalid IPs as hostnames (400)', t => {
-    test.request.get('/api/email')
-      .query({
-        alias: 'johndoe',
-        domain: '1.#.1.1'
+        domain: 'example.com'
       })
       .expect(400, t.end)
   })
@@ -53,7 +44,7 @@ module.exports = test => {
     test.request.get('/api/email')
       .query({
         alias: '.#@%^$.',
-        domain: 'example.com'
+        domain: nconf.get('DOMAIN')
       })
       .expect(400, t.end)
   })
@@ -61,7 +52,7 @@ module.exports = test => {
     test.request.get('/api/email')
       .query({
         alias: 'johndoe',
-        domain: 'example.com'
+        domain: nconf.get('DOMAIN')
       })
       .expect(301, t.end)
   })
