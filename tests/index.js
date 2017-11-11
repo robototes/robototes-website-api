@@ -14,3 +14,4 @@ test.cb('Ignores requests to non-existent API endpoints', t => {
 
 // TBA Tests
 require('./tba_tests')(test)
+require('./email_tests')(test)

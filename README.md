@@ -25,6 +25,7 @@ The following environment variables can be set, the server will not start withou
 
 * `IP` (*required, default `0.0.0.0`*) The IP to run the server on
 * `PORT` (*required, default `3000`*) The port to listen for requests on
+* `DOMAIN` (*required*) The second-level domain that the server resides on
 * `DEBUG` (*optional*) see [Debug mode](#debugmode)
 * `TBA_SECRET_KEY` (*required*) The secret key used to verify the source and integrity of payloads from The Blue Alliance
 * `DATABASE_HOST` (*required*) The IP address that the MongoDB server is listening on

@@ -22,16 +22,27 @@ module.exports = test => {
     test.request.post('/api/tba')
       .expect(400, t.end)
   })
-  test.cb('Denies requests with invalid checksums (403)', t => {
+  test.cb('Denies empty requests with checksums (400)', t => {
+    test.request.post('/api/tba')
+      .set('X-TBA-Checksum', hash('undefined'))
+      .expect(400, t.end)
+  })
+  test.cb('Denies requests with invalid checksums (400)', t => {
     test.request.post('/api/tba')
       .set('X-TBA-Checksum', 'invalidchecksum')
+      .send(messages.ping)
+      .expect(400, t.end)
+  })
+  test.cb('Denies requests with incorrect checksums (403)', t => {
+    test.request.post('/api/tba')
+      .set('X-TBA-Checksum', 'a'.repeat(40))
       .send(messages.ping)
       .expect(403, t.end)
   })
   test.cb('Denies requests with no checksum (403)', t => {
     test.request.post('/api/tba')
       .send(messages.ping)
-      .expect(403, t.end)
+      .expect(400, t.end)
   })
   test.cb('Denies requests with invalid message types (400)', t => {
     let message = {

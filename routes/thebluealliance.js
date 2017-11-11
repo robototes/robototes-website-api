@@ -1,18 +1,28 @@
 const logTBA = require('debug')('robototes-website-api:thebluealliance')
 const nconf = require('nconf')
 const crypto = require('crypto')
+const validate = require('koa-joi-validate')
+const joi = require('joi')
 
-module.exports = ctx => {
-  let message = ctx.request.body
+module.exports = router => {
+  router.post('/tba', validate({
+    headers: {
+      'x-tba-checksum': joi.string().length(40).required()
+    },
+    body: {
+      message_type: joi.string().required(),
+      message_data: joi.object().required()
+    }
+  }), async ctx => {
+    let message = ctx.request.body
 
-  if (message !== {} && message.message_type != null && message.message_data != null) {
     // Verify that the request is from TBA and has not been tampered with
     let hash = crypto.createHash('sha1')
     hash.update(nconf.get('TBA_SECRET_KEY'))
     hash.update(ctx.request.rawBody)
 
-    if (ctx.request.headers.hasOwnProperty('x-tba-checksum') !== -1 && hash.digest('hex') === ctx.request.headers['x-tba-checksum']) {
-      switch (ctx.request.body.message_type) {
+    if (hash.digest('hex') === ctx.request.headers['x-tba-checksum']) {
+      switch (message.message_type) {
         case 'upcoming_match':
           ctx.status = 200
           break
@@ -56,7 +66,5 @@ module.exports = ctx => {
     } else {
       ctx.throw(403)
     }
-  } else {
-    ctx.throw(400)
-  }
+  })
 }

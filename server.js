@@ -15,6 +15,7 @@ nconf.env()
   .required([
     'PORT',
     'IP',
+    'DOMAIN',
     'TBA_SECRET_KEY',
     'DATABASE_HOST',
     'DATABASE_PORT'
@@ -41,7 +42,7 @@ app.use(async (ctx, next) => {
     else logHTTP(`\t--> ${ctx.status} OK`)
   } catch (err) {
     // Make sure our response reflects our error
-    ctx.status = err.status
+    ctx.status = err.status || 500 // Make sure we have a status code
 
     // Tell Koa that we've handled an error
     ctx.app.emit('err', err, ctx)
@@ -56,7 +57,8 @@ app.use(async (ctx, next) => {
 log('Configured middleware')
 
 // Link all endpoints to the router
-router.post('/tba', require('./routes/thebluealliance'))
+require('./routes/thebluealliance')(router)
+require('./routes/email')(router)
 
 // Add the routes
 app.use(router.routes())
