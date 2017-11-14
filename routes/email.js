@@ -16,10 +16,10 @@ module.exports = router => {
 
     if (ctx.query.domain && emailDomains.indexOf(ctx.query.domain) === -1) ctx.throw(400) // Make sure the domain is allowed
     let email = `${ctx.query.alias}@${ctx.query.domain || nconf.get('DOMAIN')}`
-    logEmail(`Redirecting to "mailto:${email}"`)
 
     if (joi.validate(email, joi.string().email()).error == null) {
       // Respond with the email
+      logEmail(`Redirecting to "mailto:${email}"`)
       ctx.status = 301
       ctx.redirect(`mailto://${email}`)
       ctx.body = JSON.stringify(email)
