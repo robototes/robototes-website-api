@@ -1,10 +1,14 @@
-const logTBA = require('debug')('robototes-website-api:thebluealliance')
+const log = require('debug')('robototes-website-api:thebluealliance')
 const nconf = require('nconf')
 const crypto = require('crypto')
 const validate = require('koa-joi-validate')
 const joi = require('joi')
+// const EventManager = require('../mongo/events')
 
-module.exports = router => {
+module.exports = async router => {
+  // let events = await EventManager()
+  // await events.addEvent()
+
   router.post('/tba', validate({
     headers: {
       'x-tba-checksum': joi.string().length(40).required()
@@ -49,18 +53,18 @@ module.exports = router => {
         case 'final_results':
           return ctx.throw(501)
         case 'ping':
-          logTBA('Ping received from The Blue Alliance')
+          log('Ping received from The Blue Alliance')
           ctx.status = 200
           break
         case 'broadcast':
           ctx.status = 200
           break
         case 'verification':
-          logTBA('Verification code received:', ctx.request.body.message_data.verification_key)
+          log('Verification code received:', ctx.request.body.message_data.verification_key)
           ctx.status = 200
           break
         default:
-          logTBA(ctx.request.body)
+          log(ctx.request.body)
           ctx.status = 400
       }
     } else {

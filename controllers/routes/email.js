@@ -3,7 +3,7 @@ const nconf = require('nconf')
 const validate = require('koa-joi-validate')
 const joi = require('joi')
 
-const emailDomains = require('../config/email_domains.js') // Allowed email domains
+const emailDomains = require('../../config/email_domains.js') // Allowed email domains
 
 module.exports = router => {
   router.get('/email', validate({

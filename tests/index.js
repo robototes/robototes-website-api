@@ -1,10 +1,29 @@
 const test = require('ava').test // Testing function
 const supertest = require('supertest') // Routing testing
+const nconf = require('nconf')
 
-process.env.DEBUG = null
-const app = require('../server') // Our server
+const server = require('../controllers/server')
 
-test.request = supertest(app) // Routing
+nconf.env()
+  .required([
+    'PORT',
+    'IP',
+    'DOMAIN',
+    'TBA_SECRET_KEY',
+    'DATABASE_HOST',
+    'DATABASE_PORT',
+    'DATABASE_USER',
+    'DATABASE_PASS',
+    'DATABASE_NAME'
+  ])
+
+test.before(async () => {
+  process.env.DEBUG = null
+
+  let app = await server() // Our server
+
+  test.request = supertest(app) // Routing
+})
 
 // Overall tests
 test.cb('Ignores requests to non-existent API endpoints', t => {
