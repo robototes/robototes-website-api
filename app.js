@@ -1,6 +1,6 @@
 const nconf = require('nconf')
 const debug = require('debug')
-const server = require('./controllers/server')
+const server = require('./server/')
 
 const log = debug('robototes-website-api')
 

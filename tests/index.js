@@ -2,7 +2,7 @@ const test = require('ava').test // Testing function
 const supertest = require('supertest') // Routing testing
 const nconf = require('nconf')
 
-const server = require('../controllers/server')
+const server = require('../server/')
 
 nconf.env()
   .required([
