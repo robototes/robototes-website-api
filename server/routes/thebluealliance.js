@@ -1,14 +1,13 @@
-const log = require('debug')('robototes-website-api:thebluealliance')
+const debug = require('debug')
 const nconf = require('nconf')
 const crypto = require('crypto')
 const validate = require('koa-joi-validate')
 const joi = require('joi')
 // const EventManager = require('../mongo/events')
 
-module.exports = async router => {
-  // let events = await EventManager()
-  // await events.addEvent()
+const log = debug('robototes-website-api:thebluealliance')
 
+module.exports = async router => {
   router.post('/tba', validate({
     headers: {
       'x-tba-checksum': joi.string().length(40).required()
@@ -18,6 +17,8 @@ module.exports = async router => {
       message_data: joi.object().required()
     }
   }), async ctx => {
+    // let events = await EventManager()
+    // await events.addEvent()
     let message = ctx.request.body
 
     // Verify that the request is from TBA and has not been tampered with
