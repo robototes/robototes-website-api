@@ -3,11 +3,13 @@ const nconf = require('nconf')
 const crypto = require('crypto')
 const validate = require('koa-joi-validate')
 const joi = require('joi')
-// const EventManager = require('../mongo/events')
+const db = require('../db/')
 
 const log = debug('robototes-website-api:thebluealliance')
 
 module.exports = async router => {
+  const event = (await db()).model('Event') // Prepare our database collection for queries
+
   router.post('/tba', validate({
     headers: {
       'x-tba-checksum': joi.string().length(40).required()
@@ -17,8 +19,6 @@ module.exports = async router => {
       message_data: joi.object().required()
     }
   }), async ctx => {
-    // let events = await EventManager()
-    // await events.addEvent()
     let message = ctx.request.body
 
     // Verify that the request is from TBA and has not been tampered with
@@ -27,9 +27,21 @@ module.exports = async router => {
     hash.update(ctx.request.rawBody)
 
     if (hash.digest('hex') === ctx.request.headers['x-tba-checksum']) {
+      let data = message.message_data
       switch (message.message_type) {
         case 'upcoming_match':
           ctx.status = 200
+          if (data.team_keys.indexOf('frc2412') !== -1) {
+            await event.insertOne({
+              name: 'upcoming_match',
+              data: {
+                match_name: data.event_name,
+                match_key: data.match_key,
+                scheduled_time: data.scheduled_time,
+                predicted_time: data.predicted_time
+              }
+            }).exec()
+          }
           break
         case 'match_score':
           // TODO Add record to database
