@@ -18,10 +18,13 @@ module.exports = router => {
     let email = `${ctx.query.alias}@${ctx.query.domain || nconf.get('DOMAIN')}`
 
     if (joi.validate(email, joi.string().email()).error == null) {
+      // Construct a mailto link with the body filled out with a referrer
+      let mailtoLink = `mailto://${email}?body=%0A%0AI%20was%20referred%20to%20your%20email%20from%20www.${nconf.get('DOMAIN')}/contact`
+
       // Respond with the email
-      logEmail(`Redirecting to "mailto:${email}"`)
+      logEmail(`Redirecting to "${mailtoLink}"`)
       ctx.status = 301
-      ctx.redirect(`mailto://${email}`)
+      ctx.redirect(mailtoLink)
       ctx.body = JSON.stringify(email)
     } else ctx.throw(400)
   })
