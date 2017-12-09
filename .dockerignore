@@ -3,3 +3,4 @@
 !yarn.lock
 !server.js
 !routes/
+!config/
