@@ -17,7 +17,7 @@ module.exports = test => {
       .query({
         alias: 'johndoe'
       })
-      .expect('Location', `mailto://johndoe@${nconf.get('DOMAIN')}`)
+      .expect('Location', `mailto://johndoe@${nconf.get('DOMAIN')}?body=%0A%0AI%20was%20referred%20to%20your%20email%20from%20www.${nconf.get('DOMAIN')}/contact`)
       .expect(301, t.end)
   })
   test.cb('Denies empty requests (400)', t => {
