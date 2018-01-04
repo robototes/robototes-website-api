@@ -59,6 +59,7 @@ log('Configured middleware')
 // Link all endpoints to the router
 require('./routes/thebluealliance')(router)
 require('./routes/email')(router)
+require('./routes/ping')(router)
 
 // Add the routes
 app.use(router.routes())
