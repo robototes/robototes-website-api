@@ -52,9 +52,4 @@ We use these webhooks to build a customized feed for our users with all events r
 
 See our common [CONTRIBUTING.md](https://github.com/robototes/robototes-website/blob/master/CONTRIBUTING.md)
 
-### License
-
-Copyright &copy; 2017 Sammamish Robotics <robototes2412@gmail.com>, All rights reserved.
-
-Any copying and/or distributing and/or use in commercial or non-commercial environments
-via any medium of this project without the express permission of Robotics Leadership is strictly prohibited.
+### [License](https://github.com/robototes/robototes-website/blob/master/LICENSE.md)
